@@ -30,19 +30,30 @@ def tictac_toe():
         elif ('4' in choices) and ('5' in choices) and ('6' in choices):
              return True
     for x in range(0,10):
-        
-        if (win_check(p2choices)) or (win_check(p1choices)):
+        if win_check(p1choices):
+            break
+        if win_check(p2choices):
+            print('p2 WINS!')
+            break
+            
+        if ((len(p1choices) > 4 and not win_check(p1choices)) or (len(p2choices) > 4 and not win_check(p2choices))):
             break
         if x < 1:
             restring = ''.join(board)
             print(restring)
+        
         while first:
-            
+            if win_check(p1choices):
+                print('p1 WINS!')
+                break
             
             if win_check(p2choices):
                 print('p2 WINS!')
-                
                 break
+            if ((len(p1choices) > 4) or (len(p2choices) > 4)):
+                print("it's a draw")
+                break
+
             p1 = input('player one is up! choose between spots 1-9... ')
             if p1 in used: 
                 print('already taken!')
@@ -58,9 +69,7 @@ def tictac_toe():
             elif p1 == '9': board[19] ='x'
             elif p1 not in range(1,10):
                 continue
-            if ((len(p1choices) > 4) or (len(p2choices) > 4)):
-                print("it's a draw")
-                break
+        
                 
             
             used.append(p1)
@@ -70,11 +79,17 @@ def tictac_toe():
             first = False 
        
             
-        while not first:     
+        while not first:  
             if win_check(p1choices):
                 print('p1 WINS!')
                 break
-                
+            
+            if win_check(p2choices):
+                print('p2 WINS!')
+                break
+            if ((len(p1choices) > 4) or (len(p2choices) > 4)):
+                print("it's a draw")
+                break
     
             p2 = input('player two is up! choose between spots 1-9... ')
             if p2 in used:
@@ -91,13 +106,9 @@ def tictac_toe():
             elif p2 == '9': board[19]= 'o'
             elif p1 not in range(1,10): 
                 continue
-            if (len(p1choices) > 4) or (len(p2choices) > 4):
-                print("it's a draw")
-                break
+        
             used.append(p2)
             p2choices.append(p2)
             restring = ''.join(board)
             print(restring)
             first = True
-        
-    
